@@ -14,6 +14,14 @@ public class MainAppXONew {
     public static final char FIELD_ELEMENT_0 = '0';
 
     public static void main(String[] args) {
+
+        /*
+        1. Полностью разобраться с кодом, попробовать переписать с нуля, стараясь не подглядывать в
+        методичку.
+        2. Переделать проверку победы, чтобы она не была реализована просто набором условий,
+        например, с использованием циклов.
+        */
+
         createArray();
         printField();
 
