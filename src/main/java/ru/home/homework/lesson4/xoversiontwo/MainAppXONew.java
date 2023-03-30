@@ -84,10 +84,7 @@ public class MainAppXONew {
                 if (field[i][j] == c && field[i][SIZE - i - 1] == c) {
                     return true;
                 }*/
-                if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
-                    return true;
-                }
-                if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
+                if ((field[0][0] == c && field[1][1] == c && field[2][2] == c) || (field[0][2] == c && field[1][1] == c && field[2][0] == c)) {
                     return true;
                 }
             }
