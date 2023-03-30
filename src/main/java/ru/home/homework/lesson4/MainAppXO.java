@@ -1,6 +1,5 @@
 package ru.home.homework.lesson4;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -48,7 +47,7 @@ public class MainAppXO {
             System.out.println("Введите координаты X и Y : ");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
-        } while (!isFieldOk(x, y));
+        } while (!isCellEmpty(x, y));
         field[x][y] = FIELD_ELEMENT_X;
     }
 
@@ -57,7 +56,8 @@ public class MainAppXO {
         do {
             x = random.nextInt(SIZE);
             y = random.nextInt(SIZE);
-        } while (!isFieldOk(x, y));
+        } while (!isCellEmpty(x, y));
+        System.out.println("Компьютер поставил 0 в точку " + (x + 1) + " " + (y + 1));
         field[x][y] = FIELD_ELEMENT_0;
     }
 
@@ -79,7 +79,7 @@ public class MainAppXO {
         if (field[0][1] == c && field[1][1] == c && field[2][1] == c) {
             return true;
         }
-        if (field[0][2] == c && field[2][1] == c && field[2][2] == c) {
+        if (field[0][2] == c && field[1][2] == c && field[2][2] == c) {
             return true;
         }
         // Диагонали
@@ -92,10 +92,11 @@ public class MainAppXO {
         return false;
     }
 
-    public static boolean isFieldOk(int x, int y) {
-        if (x < 0 || y < 0 || x > SIZE || y > SIZE) {
+    public static boolean isCellEmpty(int x, int y) {
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
             return false;
-        } else if (field[x][y] == FIELD_ELEMENT_EMPTY) {
+        }
+        if (field[x][y] == FIELD_ELEMENT_EMPTY) {
             return true;
         }
         return false;
@@ -118,7 +119,7 @@ public class MainAppXO {
         }
         System.out.println();
         for (int i = 0; i < SIZE; i++) {
-            System.out.print(i + 1 + " ");
+            System.out.print((i + 1) + " ");
             for (int j = 0; j < SIZE; j++) {
                 System.out.print(field[i][j] + " ");
             }

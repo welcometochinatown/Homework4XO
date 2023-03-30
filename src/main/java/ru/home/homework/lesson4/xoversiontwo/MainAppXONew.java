@@ -1,6 +1,5 @@
 package ru.home.homework.lesson4.xoversiontwo;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -48,7 +47,7 @@ public class MainAppXONew {
             System.out.println("Введите координаты X и Y : ");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
-        } while (!isFieldOk(x, y));
+        } while (!isCellEmpty(x, y));
         field[x][y] = FIELD_ELEMENT_X;
     }
 
@@ -57,42 +56,10 @@ public class MainAppXONew {
         do {
             x = random.nextInt(SIZE);
             y = random.nextInt(SIZE);
-        } while (!isFieldOk(x, y));
+        } while (!isCellEmpty(x, y));
         field[x][y] = FIELD_ELEMENT_0;
     }
 
-    /*
-        public static boolean winCondition(char c) {
-            // Горизонтальные прямые
-            if (field[0][0] == c && field[0][1] == c && field[0][2] == c) {
-                return true;
-            }
-            if (field[1][0] == c && field[1][1] == c && field[1][2] == c) {
-                return true;
-            }
-            if (field[2][0] == c && field[2][1] == c && field[2][2] == c) {
-                return true;
-            }
-            // Вертикальные прямые
-            if (field[0][0] == c && field[1][0] == c && field[2][0] == c) {
-                return true;
-            }
-            if (field[0][1] == c && field[1][1] == c && field[2][1] == c) {
-                return true;
-            }
-            if (field[0][2] == c && field[2][1] == c && field[2][2] == c) {
-                return true;
-            }
-            // Диагонали
-            if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
-                return true;
-            }
-            if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
-                return true;
-            }
-            return false;
-        }
-    */
     public static boolean winConUpdated(char c) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -105,7 +72,14 @@ public class MainAppXONew {
                     return true;
                 }
                 // Диагонали
+                /**
                 if (field[i][j] == c && field[i][SIZE - i - 1] == c) {
+                    return true;
+                }*/
+                if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
+                    return true;
+                }
+                if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
                     return true;
                 }
             }
@@ -113,10 +87,11 @@ public class MainAppXONew {
         return false;
     }
 
-    public static boolean isFieldOk(int x, int y) {
-        if (x < 0 || y < 0 || x > SIZE || y > SIZE) {
+    public static boolean isCellEmpty(int x, int y) {
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
             return false;
-        } else if (field[x][y] == FIELD_ELEMENT_EMPTY) {
+        }
+        if (field[x][y] == FIELD_ELEMENT_EMPTY) {
             return true;
         }
         return false;
