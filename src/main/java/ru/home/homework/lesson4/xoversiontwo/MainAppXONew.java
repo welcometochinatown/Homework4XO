@@ -1,9 +1,9 @@
-package ru.home.homework.lesson4;
+package ru.home.homework.lesson4.xoversiontwo;
 
 import java.util.Random;
 import java.util.Scanner;
 
-public class MainAppXO {
+public class MainAppXONew {
     public static Random random = new Random();
     public static Scanner scanner = new Scanner(System.in);
     public static char[][] field;
@@ -21,13 +21,14 @@ public class MainAppXO {
         2. Переделать проверку победы, чтобы она не была реализована просто набором условий,
         например, с использованием циклов.
         */
+
         createArray();
         printField();
 
         while (true) {
             playerTurn();
             printField();
-            if (winCondition(FIELD_ELEMENT_X)) {
+            if (winConUpdated(FIELD_ELEMENT_X)) {
                 System.out.println("Human WIN");
                 break;
             }
@@ -37,7 +38,7 @@ public class MainAppXO {
             }
             aiTurn();
             printField();
-            if (winCondition(FIELD_ELEMENT_0)) {
+            if (winConUpdated(FIELD_ELEMENT_0)) {
                 System.out.println("AI WIN");
                 break;
             }
@@ -64,37 +65,29 @@ public class MainAppXO {
             x = random.nextInt(SIZE);
             y = random.nextInt(SIZE);
         } while (!isCellEmpty(x, y));
-        System.out.println("Компьютер поставил 0 в точку " + (x + 1) + " " + (y + 1));
         field[x][y] = FIELD_ELEMENT_0;
     }
 
-    public static boolean winCondition(char c) {
-        // Горизонтальные прямые
-        if (field[0][0] == c && field[0][1] == c && field[0][2] == c) {
-            return true;
-        }
-        if (field[1][0] == c && field[1][1] == c && field[1][2] == c) {
-            return true;
-        }
-        if (field[2][0] == c && field[2][1] == c && field[2][2] == c) {
-            return true;
-        }
-        // Вертикальные прямые
-        if (field[0][0] == c && field[1][0] == c && field[2][0] == c) {
-            return true;
-        }
-        if (field[0][1] == c && field[1][1] == c && field[2][1] == c) {
-            return true;
-        }
-        if (field[0][2] == c && field[1][2] == c && field[2][2] == c) {
-            return true;
-        }
-        // Диагонали
-        if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
-            return true;
-        }
-        if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
-            return true;
+    public static boolean winConUpdated(char c) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                // Горизонтальные прямые
+                if (field[i][0] == c && field[i][1] == c && field[i][2] == c) {
+                    return true;
+                }
+                // Вертикальные прямые
+                if (field[0][j] == c && field[1][j] == c && field[2][j] == c) {
+                    return true;
+                }
+                // Диагонали
+                /**
+                if (field[i][j] == c && field[i][SIZE - i - 1] == c) {
+                    return true;
+                }*/
+                if ((field[0][0] == c && field[1][1] == c && field[2][2] == c) || (field[0][2] == c && field[1][1] == c && field[2][0] == c)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -126,7 +119,7 @@ public class MainAppXO {
         }
         System.out.println();
         for (int i = 0; i < SIZE; i++) {
-            System.out.print((i + 1) + " ");
+            System.out.print(i + 1 + " ");
             for (int j = 0; j < SIZE; j++) {
                 System.out.print(field[i][j] + " ");
             }
